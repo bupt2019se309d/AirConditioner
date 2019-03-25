@@ -1,0 +1,11 @@
+#ifndef NETWORK_H
+#define NETWORK_H
+
+//接受和发送消息
+class network
+{
+public:
+    network();
+};
+
+#endif // NETWORK_H

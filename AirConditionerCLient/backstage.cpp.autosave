@@ -1,0 +1,7 @@
+#include "backstage.h"
+
+//负责计费
+BackStage::BackStage()
+{
+
+}
