@@ -5,21 +5,34 @@
 #include <QWidget>
 #include <QDateTime>
 
-enum mode {cold,warm};
+enum mode {cool,warm};
 
 struct client
 {
-    //从控机的编号
-    int no;
+    //从控机的ip地址
+    QString ip;
 
     //开始被服务的时间
     QDateTime start_t;
 
     //累计被服务的时长
-    int service_dur;
+    float service_dur;
 
     //等待计时器
-    int wait_timer;
+    float wait_timer;
+
+    //指向下一个的指针
+    client* next;
+
+    //构造函数
+    client(const QString _ip, const QDateTime _start_t,
+           const float _service_dur,const float _wait_timer)
+    {
+        ip=_ip;
+        start_t=_start_t;
+        service_dur=_service_dur;
+        wait_timer=_wait_timer;
+    }
 };
 
 
@@ -30,11 +43,17 @@ class Manager
 
 private:
 
-    //服务队列，按服务时长降序排序
-    client service_list;
+    //服务队列头，按服务时长降序排序
+    client* service_list=NULL;
+
+    //服务队列尾
+    client* service_list_tail=NULL;
 
     //等待队列，按等待时长降序排序
-    client await_list;
+    client* wait_list=NULL;
+
+    //等待队列尾
+    client* wait_list_tail=NULL;
 
     //可供使用的从控机总数
     int all_obj;
@@ -54,11 +73,13 @@ public:
     bool power_on(int mode);
 
     //设置从控机参数（可能被power_on调用，也可能被mainwindow调用）
-    bool set_para(int mode,int default_temp,int temp_rang,
-                  int default_fan,int no_of_service);
+    bool set_para(int mode);
 
     //启动从控机（发送开启消息）
     bool start();
+
+    //从控机进入待机（尝试启动从控机，由于资源不够失败，加入等待队列）
+    bool wait();
 
     //关闭从控机（发送关闭消息，将其从服务队列删除）
     bool power_off();

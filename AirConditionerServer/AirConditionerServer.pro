@@ -15,10 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     manager.cpp \
-    reception.cpp
+    reception.cpp \
+    network.cpp
 
 HEADERS  += mainwindow.h \
     manager.h \
-    reception.h
+    reception.h \
+    network.h \
+    parameter.h
 
 FORMS    += mainwindow.ui

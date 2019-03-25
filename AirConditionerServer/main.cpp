@@ -1,5 +1,9 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include "parameter.h"
+
+
+parameter para;
 
 int main(int argc, char *argv[])
 {

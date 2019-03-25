@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "parameter.h"
+
+extern parameter para;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,7 +21,7 @@ MainWindow::~MainWindow()
 //制冷模式目标温度设定
 void MainWindow::on_coldtmpr_box_editingFinished()
 {
-
+    para.cool_target_tmpr=ui->coldtmpr_box->value();
 }
 
 
